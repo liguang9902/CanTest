@@ -59,6 +59,52 @@ std::map<LockStatus , String> protocolLockStatus{
     {unlocked,"unlocked"}
 };
 
+std::map<StopCharingReason , String> protocolStopCharingReason{
+    {Local,"Local"},
+    {DeAuthorized,"DeAuthorized"},
+    {EmergencyStop,"EmergencyStop"},
+    {EVDisconnected,"EVDisconnected"},
+    {HardReset,"HardReset"},
+    {Reboot,"Reboot"},
+    {Remote,"Remote"},
+    {PoweLoss,"PoweLoss"},
+    {SoftReset,"SoftReset"}, 		
+    {UnlockCommand,"UnlockCommand"}
+};
+
+std::map<ErrorReason , String> protocolErrorReason{
+    {ConnectorLockFailure,"ConnectorLockFailure"},
+    {EVCommunicationError,"EVCommunicationError"},
+    {GroundFailure,"GroundFailure"},
+    {HighTemperature,"HighTemperature"},	
+    {InternalError,"InternalError"}, 		
+    {LocalListConflict,"LocalListConflict"}, 
+    {OverCurrentFailure,"OverCurrentFailure"},
+    {OverVoltage,"OverVoltage"},
+    {PowerMeterFailure,"PowerMeterFailure"}, 
+    {PowerSwitchFailure,"PowerSwitchFailure"},
+    {ReaderFailure,"ReaderFailure"},
+    {UnderVoltage,"UnderVoltage"},
+    {WeakSignal,"WeakSignal"}
+};
+
+std::map<ChangeAvailabilityResStatus , String> protocolChangeAvailabilityResStatus{
+    {CAS_Accepted,"Accepted"},
+    {CAS_Rejectedcked,"Rejectedcked"},
+    {CAS_Scheduled,"Scheduled"}
+};
+
+std::map<CommonStatus , String> protocolCommonStatus{
+    {Accepted,"Accepted"},
+    {Rejected,"Rejected"}
+};
+
+std::map<UnlockConnectorStatus , String> protocolUnlockConnectorStatus{
+    {Unlocked,"Unlocked"},
+    {UnlockFailed,"UnlockFailed"},
+    {NotSupported,"NotSupported"}
+};
+
 String ID = "12345678901234567890";
 tm TestTime ;
 
@@ -268,7 +314,7 @@ void Canpacket_ProtocolSend<Payload_UnlockConnectorReq>(Payload_UnlockConnectorR
     CAN.write(payload.connectorID);
     CAN.endPacket();
 }
-
+/*
 template<>
 void Canunpacket_ProtocolRes<Payload_AuthorizeReq>(Payload_AuthorizeReq& payload){
     int packetSize = CAN.parsePacket();
@@ -316,13 +362,4 @@ void Canunpacket_ProtocolRes<Payload_AuthorizeReq>(Payload_AuthorizeReq& payload
     
     
 }
-
-template<>
-void Canunpacket_ProtocolRes<Payload_BootNtf>(Payload_BootNtf& payload){
-int packetSize = CAN.parsePacket();
-    uint32_t CanID = *newProtocolCommand[payload.CmdID];
-    if (packetSize)
-    {
-
-    }
-}
+*/

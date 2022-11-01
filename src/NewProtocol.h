@@ -105,6 +105,7 @@ typedef enum{
     SoftReset, 		
     UnlockCommand
 }StopCharingReason;
+extern std::map<StopCharingReason , String> protocolStopCharingReason;
 
 typedef enum{
     ConnectorLockFailure,
@@ -121,6 +122,7 @@ typedef enum{
     UnderVoltage, 
     WeakSignal
 }ErrorReason;
+extern std::map<ErrorReason , String> protocolErrorReason;
 
 typedef enum{
     Inoperative,
@@ -132,16 +134,20 @@ typedef enum{
     CAS_Rejectedcked,
     CAS_Scheduled
 }ChangeAvailabilityResStatus;
+extern std::map<ChangeAvailabilityResStatus , String> protocolChangeAvailabilityResStatus;
 
 typedef enum{
     Accepted,
     Rejected
 }CommonStatus;
+extern std::map<CommonStatus , String> protocolCommonStatus;
 
 typedef enum{
     Unlocked,
-    UnlockFailed
+    UnlockFailed,
+    NotSupported
 }UnlockConnectorStatus;
+extern std::map<UnlockConnectorStatus , String> protocolUnlockConnectorStatus;
 
 typedef enum{
     Hard,
@@ -225,8 +231,11 @@ struct Payload_MeterValueCnf
 struct Payload_StopChargingNtf
 {
     ProtocolCommand CmdID = ProtocolCommand_StopChargingNtf;
+    char Idtag[20] = {0,};
     uint8_t connectorID;
+    float MeterStop;
     uint8_t StopReason;
+    tm Timestamp;
 };
 
 struct Payload_StopChargingCnf
@@ -238,7 +247,7 @@ struct Payload_StopChargingCnf
 struct Payload_ErrorNtf
 {
     ProtocolCommand CmdID = ProtocolCommand_ErrorNtf;
-    tm currentTime;
+    tm Timestamp;
     uint8_t connectorID;
     uint8_t ReasonError;
 };
